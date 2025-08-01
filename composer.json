@@ -12,7 +12,8 @@
     "type": "flarum-extension",
     "license": "MIT",
     "require": {
-        "flarum/core": "^2.0"
+        "flarum/core": "^2.0",
+        "s9e/text-formatter": "*"
     },
     "authors": [
         {
