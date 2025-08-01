@@ -46,5 +46,19 @@ app.initializers.add('linkerlin/flarum-katex', () => {
       label: app.translator.trans('linkerlin-katex.admin.settings.macros_label'),
       help: app.translator.trans('linkerlin-katex.admin.settings.macros_help'),
       placeholder: '{"\\\\RR": "\\\\mathbb{R}", "\\\\NN": "\\\\mathbb{N}"}',
+    })
+    .registerSetting({
+      setting: 'linkerlin-katex.cdn_auto_render',
+      label: app.translator.trans('linkerlin-katex.admin.settings.cdn_auto_render'),
+      help: app.translator.trans('linkerlin-katex.admin.settings.cdn_auto_render_help'),
+      type: 'text',
+      placeholder: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js',
+    })
+    .registerSetting({
+      setting: 'linkerlin-katex.cdn_copy_tex',
+      label: app.translator.trans('linkerlin-katex.admin.settings.cdn_copy_tex'),
+      help: app.translator.trans('linkerlin-katex.admin.settings.cdn_copy_tex_help'),
+      type: 'text',
+      placeholder: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js',
     });
 });

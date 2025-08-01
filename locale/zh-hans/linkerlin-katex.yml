@@ -22,6 +22,12 @@ linkerlin-katex:
       macros_label: 自定义宏
       macros_help: 定义自定义 LaTeX 宏的 JSON 对象（例如：{"\\RR": "\\mathbb{R}"}）
       
+      cdn_auto_render: 自动渲染 CDN URL
+      cdn_auto_render_help: KaTeX 自动渲染扩展的 CDN URL（留空则禁用）
+      
+      cdn_copy_tex: 复制公式 CDN URL
+      cdn_copy_tex_help: KaTeX 复制公式扩展的 CDN URL（留空则禁用）
+      
   forum:
     math_error: 数学渲染错误
     loading: 正在加载数学公式...
