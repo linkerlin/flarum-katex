@@ -1,0 +1,29 @@
+linkerlin-katex:
+  admin:
+    settings:
+      inline_delimiters: "行内数学公式分隔符"
+      inline_delimiters_help: "行内数学表达式的分隔符（使用 %e% 作为表达式占位符）"
+      block_delimiters: "块级数学公式分隔符"
+      block_delimiters_help: "块级数学表达式的分隔符（使用 %e% 作为表达式占位符）"
+      bbcode_inline_delimiters: "BBCode 行内分隔符"
+      bbcode_inline_delimiters_help: "行内数学的 BBCode 分隔符（内部使用）"
+      bbcode_block_delimiters: "BBCode 块级分隔符"
+      bbcode_block_delimiters_help: "块级数学的 BBCode 分隔符（内部使用）"
+      throw_on_error: "遇到错误时抛出异常"
+      throw_on_error_help: "如果启用，KaTeX 将对无效表达式抛出错误而不是渲染错误文本"
+      error_color: "错误颜色"
+      error_color_help: "表达式渲染失败时错误文本的颜色"
+      output_mode: "输出模式"
+      output_mode_help: "选择渲染数学公式的输出格式"
+      enable_copy_tex: "启用 Copy-TeX"
+      enable_copy_tex_help: "允许用户在选择渲染的数学公式时复制 LaTeX 源码"
+      cdn_katex_js: "KaTeX JavaScript CDN"
+      cdn_katex_js_help: "KaTeX JavaScript 库的 CDN 地址"
+      cdn_katex_css: "KaTeX CSS CDN"
+      cdn_katex_css_help: "KaTeX CSS 样式表的 CDN 地址"
+      cdn_copy_tex: "Copy-TeX CDN"
+      cdn_copy_tex_help: "KaTeX copy-tex 扩展的 CDN 地址"
+  
+  forum:
+    math_preview: "数学公式预览"
+    copy_tex_tooltip: "点击复制 LaTeX 源码"

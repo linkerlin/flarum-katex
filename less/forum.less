@@ -1,0 +1,61 @@
+// KaTeX Math Renderer Styles
+
+.katex-inline {
+  display: inline;
+  margin: 0 2px;
+}
+
+.katex-block {
+  display: block;
+  margin: 1em 0;
+  text-align: center;
+  
+  .katex-display {
+    margin: 0;
+  }
+}
+
+// Ensure KaTeX elements don't break layout
+.katex {
+  font-size: 1em;
+  line-height: 1.2;
+}
+
+// Copy-tex support
+.katex-html {
+  // Hide the HTML rendering when copy-tex is active
+  &[data-copy-tex] {
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  }
+}
+
+// Error styling
+.katex-error {
+  color: #cc0000;
+  border: 1px solid #cc0000;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background-color: rgba(204, 0, 0, 0.1);
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .katex-block {
+    font-size: 0.9em;
+    overflow-x: auto;
+    
+    .katex-display {
+      white-space: nowrap;
+    }
+  }
+}

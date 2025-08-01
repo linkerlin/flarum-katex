@@ -1,0 +1,26 @@
+# Dependencies
+js/node_modules/
+js/package-lock.json
+
+# Build files
+js/dist/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Test files
+test.html

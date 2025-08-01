@@ -1,0 +1,29 @@
+linkerlin-katex:
+  admin:
+    settings:
+      inline_delimiters: "Inline Math Delimiters"
+      inline_delimiters_help: "Delimiters for inline math expressions (use %e% as placeholder for expression)"
+      block_delimiters: "Block Math Delimiters"
+      block_delimiters_help: "Delimiters for block math expressions (use %e% as placeholder for expression)"
+      bbcode_inline_delimiters: "BBCode Inline Delimiters"
+      bbcode_inline_delimiters_help: "BBCode delimiters for inline math (internal use)"
+      bbcode_block_delimiters: "BBCode Block Delimiters"
+      bbcode_block_delimiters_help: "BBCode delimiters for block math (internal use)"
+      throw_on_error: "Throw on Error"
+      throw_on_error_help: "If enabled, KaTeX will throw an error for invalid expressions instead of rendering error text"
+      error_color: "Error Color"
+      error_color_help: "Color for error text when expressions fail to render"
+      output_mode: "Output Mode"
+      output_mode_help: "Choose the output format for rendered math"
+      enable_copy_tex: "Enable Copy-TeX"
+      enable_copy_tex_help: "Allow users to copy LaTeX source when selecting rendered math"
+      cdn_katex_js: "KaTeX JavaScript CDN"
+      cdn_katex_js_help: "CDN URL for KaTeX JavaScript library"
+      cdn_katex_css: "KaTeX CSS CDN"
+      cdn_katex_css_help: "CDN URL for KaTeX CSS stylesheet"
+      cdn_copy_tex: "Copy-TeX CDN"
+      cdn_copy_tex_help: "CDN URL for KaTeX copy-tex extension"
+  
+  forum:
+    math_preview: "Math Preview"
+    copy_tex_tooltip: "Click to copy LaTeX source"
