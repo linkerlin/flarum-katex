@@ -1,0 +1,27 @@
+linkerlin-katex:
+  admin:
+    settings:
+      enabled_label: Enable KaTeX Math Rendering
+      enabled_help: Enable LaTeX math rendering using KaTeX library
+      
+      display_mode_label: Default Display Mode
+      display_mode_help: Use display mode by default (larger, centered math)
+      
+      throw_on_error_label: Throw on Error
+      throw_on_error_help: Throw errors instead of rendering error messages
+      
+      error_color_label: Error Color
+      error_color_help: Color for math rendering errors (hex color code)
+      
+      delimiters_label: Math Delimiters
+      delimiters_help: Choose which delimiters to recognize for math expressions
+      delimiters_default: Default (both \(...\) and $$...$$)
+      delimiters_parentheses: Parentheses only \(...\)
+      delimiters_dollars: Dollars only $$...$$
+      
+      macros_label: Custom Macros
+      macros_help: JSON object defining custom LaTeX macros (e.g., {"\\RR": "\\mathbb{R}"})
+      
+  forum:
+    math_error: Math rendering error
+    loading: Loading math...

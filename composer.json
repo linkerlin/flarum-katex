@@ -1,0 +1,43 @@
+{
+    "name": "linkerlin/flarum-katex",
+    "description": "KaTeX LaTeX math rendering for Flarum 2.0",
+    "keywords": [
+        "flarum",
+        "extension",
+        "katex",
+        "latex",
+        "math",
+        "mathematics"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "LinkerLin",
+            "email": "linkerlin@example.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "LinkerLin\\FlarumKatex\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "KaTeX Math Rendering",
+            "category": "feature",
+            "icon": {
+                "name": "fas fa-square-root-alt",
+                "backgroundColor": "#e74c3c",
+                "color": "#fff"
+            }
+        },
+        "flagrow": {
+            "discuss": "https://discuss.flarum.org/d/xxxxx"
+        }
+    }
+}

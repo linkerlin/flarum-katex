@@ -1,0 +1,107 @@
+// Forum styles for KaTeX math rendering
+
+.katex-inline,
+.katex-block {
+  // Base styles for math containers
+  &.katex-error {
+    color: #cc0000;
+    border-bottom: 1px dashed #cc0000;
+    cursor: help;
+  }
+}
+
+.katex-inline {
+  display: inline;
+  
+  // Ensure inline math doesn't break line height too much
+  .katex {
+    font-size: 1em;
+  }
+}
+
+.katex-block {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+  
+  // Block math should be more prominent
+  .katex {
+    font-size: 1.1em;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .katex-block {
+    margin: 0.8em 0;
+    
+    .katex {
+      font-size: 1em;
+    }
+  }
+  
+  .katex-inline .katex {
+    font-size: 0.95em;
+  }
+}
+
+// Dark mode support
+.App--dark {
+  .katex-inline.katex-error,
+  .katex-block.katex-error {
+    color: #ff6b6b;
+    border-bottom-color: #ff6b6b;
+  }
+}
+
+// Copy-TeX button styling
+.katex .katex-html .copy-tex {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.katex:hover .katex-html .copy-tex {
+  opacity: 0.7;
+}
+
+.katex .katex-html .copy-tex:hover {
+  opacity: 1;
+}
+
+// Ensure math doesn't overflow on small screens
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+// Better spacing in posts
+.Post-body,
+.CommentPost-body {
+  .katex-block {
+    margin: 1.2em 0;
+  }
+  
+  .katex-inline {
+    margin: 0 0.1em;
+  }
+}
+
+// Loading state
+.katex-loading {
+  background: #f8f9fa;
+  color: #6c757d;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-style: italic;
+  
+  &::after {
+    content: "...";
+    animation: katex-loading 1.5s infinite;
+  }
+}
+
+@keyframes katex-loading {
+  0%, 20% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}

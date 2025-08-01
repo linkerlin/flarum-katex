@@ -1,0 +1,27 @@
+linkerlin-katex:
+  admin:
+    settings:
+      enabled_label: 启用 KaTeX 数学渲染
+      enabled_help: 使用 KaTeX 库启用 LaTeX 数学公式渲染
+      
+      display_mode_label: 默认显示模式
+      display_mode_help: 默认使用显示模式（更大、居中的数学公式）
+      
+      throw_on_error_label: 错误时抛出异常
+      throw_on_error_help: 遇到错误时抛出异常而不是渲染错误消息
+      
+      error_color_label: 错误颜色
+      error_color_help: 数学渲染错误的颜色（十六进制颜色代码）
+      
+      delimiters_label: 数学分隔符
+      delimiters_help: 选择识别数学表达式的分隔符
+      delimiters_default: 默认（\(...\) 和 $$...$$ 都支持）
+      delimiters_parentheses: 仅括号 \(...\)
+      delimiters_dollars: 仅美元符号 $$...$$
+      
+      macros_label: 自定义宏
+      macros_help: 定义自定义 LaTeX 宏的 JSON 对象（例如：{"\\RR": "\\mathbb{R}"}）
+      
+  forum:
+    math_error: 数学渲染错误
+    loading: 正在加载数学公式...
