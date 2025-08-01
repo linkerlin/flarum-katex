@@ -47,12 +47,11 @@ class ConfigureTextFormatter
         
         if ($delimiters === 'default' || $delimiters === 'parentheses') {
             // Inline math: \(...\)
-            $config->rootContext->flags |= $config::RULE_IGNORE_WHITESPACE;
             
             // Add regex for inline math
             $config->tags->add('KATEX_INLINE');
             $config->plugins->load('Regexp', [
-                'regexp' => '/\\\\\\((.+?)\\\\\\)/',
+                'regexp' => '/\\\\((.+?)\\\\)/',
                 'tagName' => 'KATEX_INLINE'
             ]);
         }

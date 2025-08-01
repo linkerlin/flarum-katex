@@ -16,6 +16,7 @@ use Flarum\Extend\Locales;
 use Flarum\Extend\Settings;
 use Flarum\Extend\Formatter;
 use LinkerLin\FlarumKatex\ConfigureTextFormatter;
+use LinkerLin\FlarumKatex\ConfigureTextFormatter;
 
 return [
     (new Frontend('forum'))
