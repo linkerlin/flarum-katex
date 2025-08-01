@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaTeX Test - Fixed Version</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.css" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .katex-error {
+            color: #cc0000;
+            background-color: #ffe6e6;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>KaTeX Extension Test - Fixed Version</h1>
+    <p class="success">✅ No integrity hash conflicts - CDN resources should load properly</p>
+    
+    <div class="test-section">
+        <h3>Inline Math with \(...\)</h3>
+        <p>The quadratic formula is \(x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\) and Einstein's equation is \(E = mc^2\).</p>
+    </div>
+
+    <div class="test-section">
+        <h3>Block Math with $$...$$</h3>
+        <p>The integral of a Gaussian function:</p>
+        $$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$
+        
+        <p>The famous Euler's identity:</p>
+        $$e^{i\pi} + 1 = 0$$
+    </div>
+
+    <div class="test-section">
+        <h3>BBCode Style Math</h3>
+        <div class="katex-inline" data-katex="a^2 + b^2 = c^2">a^2 + b^2 = c^2</div>
+        <div class="katex-block" data-katex="\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}">\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Complex Expressions</h3>
+        <p>Matrix multiplication: \(\begin{pmatrix} a & b \\ c & d \end{pmatrix} \begin{pmatrix} x \\ y \end{pmatrix} = \begin{pmatrix} ax + by \\ cx + dy \end{pmatrix}\)</p>
+        
+        <p>Fourier Transform:</p>
+        $$\mathcal{F}[f(t)] = \int_{-\infty}^{\infty} f(t) e^{-2\pi i \xi t} dt$$
+    </div>
+
+    <div class="test-section">
+        <h3>Error Handling Test</h3>
+        <p>Invalid LaTeX: \(\invalid{syntax}\) should show error gracefully.</p>
+        <div class="katex-inline" data-katex="\invalid{syntax}">Invalid syntax test</div>
+    </div>
+
+    <!-- Load scripts without integrity hashes to avoid conflicts -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js" crossorigin="anonymous"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log('KaTeX loaded:', typeof katex !== 'undefined');
+            console.log('Auto-render loaded:', typeof renderMathInElement !== 'undefined');
+            
+            // Render delimiter-based math
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '\\(', right: '\\)', display: false},
+                        {left: '$$', right: '$$', display: true}
+                    ],
+                    throwOnError: false,
+                    errorColor: '#cc0000'
+                });
+                console.log('Auto-render completed');
+            }
+
+            // Render BBCode style math
+            document.querySelectorAll('.katex-inline').forEach(function(element) {
+                try {
+                    const math = element.getAttribute('data-katex') || element.textContent;
+                    katex.render(math, element, {
+                        displayMode: false,
+                        throwOnError: false,
+                        errorColor: '#cc0000'
+                    });
+                } catch (error) {
+                    element.classList.add('katex-error');
+                    element.title = error.message;
+                    console.warn('Inline math error:', error);
+                }
+            });
+
+            document.querySelectorAll('.katex-block').forEach(function(element) {
+                try {
+                    const math = element.getAttribute('data-katex') || element.textContent;
+                    katex.render(math, element, {
+                        displayMode: true,
+                        throwOnError: false,
+                        errorColor: '#cc0000'
+                    });
+                } catch (error) {
+                    element.classList.add('katex-error');
+                    element.title = error.message;
+                    console.warn('Block math error:', error);
+                }
+            });
+            
+            console.log('All math rendering completed');
+        });
+    </script>
+</body>
+</html>
