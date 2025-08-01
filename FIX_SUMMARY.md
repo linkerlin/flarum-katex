@@ -1,12 +1,83 @@
-# Flarum KaTeX Extension 修复总结
+# Flarum KaTeX 扩展 2.0 兼容性修复总结
 
-## 问题分析
+## 问题描述
 
-原始的Flarum KaTeX扩展存在以下问题：
+在 Flarum 2.0 beta3 中启用 linkerlin/flarum-katex 扩展时遇到以下错误：
 
-1. **完整性检查失败**：KaTeX CDN资源加载失败，因为`crossorigin`属性触发了浏览器的完整性检查，但提供的完整性哈希与实际资源不匹配。
+```
+Error: Class "Flarum\Core\Extend\Frontend" not found in /var/www/beiduofen/vendor/linkerlin/flarum-katex/extend.php:21
+```
 
-2. **renderMathInElement未定义**：JavaScript错误表明`renderMathInElement`函数未定义，这是因为`auto-render.min.js`库没有正确加载。
+## 修复过程
+
+### 问题分析
+
+错误信息显示代码试图访问 `Flarum\Core\Extend\Frontend` 类，但这个类在 Flarum 2.0 中不存在。正确的命名空间应该是 `Flarum\Extend\Frontend`。
+
+### 修复方案
+
+已将 `extend.php` 文件更新为使用正确的 Flarum 2.0 API：
+
+1. **移除命名空间声明**: 从文件顶部移除了 `namespace LinkerLin\FlarumKatex;`
+2. **更新导入语句**: 使用 `use Flarum\Extend;` 而不是分别导入各个类
+3. **使用正确的类引用**: 使用 `Extend\Frontend`, `Extend\Locales`, `Extend\Settings`, `Extend\Formatter`
+4. **修复类引用**: 在 Formatter 配置中使用完整的类名 `\LinkerLin\FlarumKatex\ConfigureTextFormatter::class`
+
+### 修改的文件
+
+- `extend.php`: 更新为与 Flarum 2.0 兼容的 API
+
+### 技术细节
+
+修复后的 `extend.php` 使用以下结构：
+
+```php
+<?php
+use Flarum\Extend;
+
+return [
+    (new Extend\Frontend('forum'))
+        ->js(__DIR__.'/js/dist/forum.js')
+        ->css(__DIR__.'/less/forum.less'),
+    
+    (new Extend\Frontend('admin'))
+        ->js(__DIR__.'/js/dist/admin.js')
+        ->css(__DIR__.'/less/admin.less'),
+    
+    new Extend\Locales(__DIR__.'/locale'),
+    
+    (new Extend\Settings())
+        // ... 设置配置
+    
+    (new Extend\Formatter())
+        ->configure(\LinkerLin\FlarumKatex\ConfigureTextFormatter::class),
+];
+```
+
+## 测试建议
+
+修复完成后，建议进行以下测试：
+
+1. 清除 Flarum 缓存
+2. 重新启用扩展
+3. 测试 KaTeX 数学公式渲染功能
+4. 检查管理面板中的扩展设置
+
+## 注意事项
+
+- 这个修复是基于 Flarum 2.0 beta3 的 API 结构
+- 其他 PHP 类文件（`ConfigureTextFormatter.php`, `LoadSettings.php`）使用了正确的命名空间，无需修改
+- 如果仍然遇到问题，可能需要检查 Flarum 的版本兼容性或清除所有缓存
+
+## 文件清单
+
+修改的文件：
+- `extend.php` - 主要的扩展配置文件
+
+未修改的文件（已确认兼容）：
+- `src/ConfigureTextFormatter.php`
+- `src/LoadSettings.php`
+- `composer.json`
 
 3. **缺少配置选项**：缺少对`auto-render.min.js`和`copy-tex.min.js`的CDN URL配置选项。
 

@@ -9,26 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace LinkerLin\FlarumKatex;
-
-use Flarum\Extend\Frontend;
-use Flarum\Extend\Locales;
-use Flarum\Extend\Settings;
-use Flarum\Extend\Formatter;
-use LinkerLin\FlarumKatex\ConfigureTextFormatter;
+use Flarum\Extend;
 
 return [
-    (new Frontend('forum'))
+    (new Extend\Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
         ->css(__DIR__.'/less/forum.less'),
 
-    (new Frontend('admin'))
+    (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
 
-    new Locales(__DIR__.'/locale'),
+    new Extend\Locales(__DIR__.'/locale'),
 
-    (new Settings())
+    (new Extend\Settings())
         ->default('linkerlin-katex.inline_delimiters', '\\(%e%\\)')
         ->default('linkerlin-katex.block_delimiters', '$$%e%$$')
         ->default('linkerlin-katex.bbcode_inline_delimiters', '[imath]%e%[/imath]')
@@ -62,6 +56,6 @@ return [
         ->serializeToForum('katex.cdn_auto_render', 'linkerlin-katex.cdn_auto_render')
         ->serializeToForum('katex.enabled', function () { return true; }),
 
-    (new Formatter())
-        ->configure(ConfigureTextFormatter::class),
+    (new Extend\Formatter())
+        ->configure(\LinkerLin\FlarumKatex\ConfigureTextFormatter::class),
 ];
