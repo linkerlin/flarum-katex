@@ -7,7 +7,6 @@ function loadKaTeX() {
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
     cssLink.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
-    cssLink.integrity = 'sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn';
     cssLink.crossOrigin = 'anonymous';
     document.head.appendChild(cssLink);
 
@@ -21,16 +20,23 @@ function loadKaTeX() {
     // Load KaTeX JS
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js';
-    script.integrity = 'sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx';
     script.crossOrigin = 'anonymous';
     script.onload = () => {
-      // Load Copy-TeX extension
-      const copyTexScript = document.createElement('script');
-      copyTexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js';
-      copyTexScript.crossOrigin = 'anonymous';
-      copyTexScript.onload = resolve;
-      copyTexScript.onerror = reject;
-      document.head.appendChild(copyTexScript);
+      // Load auto-render extension first
+      const autoRenderScript = document.createElement('script');
+      autoRenderScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js';
+      autoRenderScript.crossOrigin = 'anonymous';
+      autoRenderScript.onload = () => {
+        // Load Copy-TeX extension
+        const copyTexScript = document.createElement('script');
+        copyTexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js';
+        copyTexScript.crossOrigin = 'anonymous';
+        copyTexScript.onload = resolve;
+        copyTexScript.onerror = resolve; // Don't fail if copy-tex fails
+        document.head.appendChild(copyTexScript);
+      };
+      autoRenderScript.onerror = resolve; // Don't fail if auto-render fails
+      document.head.appendChild(autoRenderScript);
     };
     script.onerror = reject;
     document.head.appendChild(script);
@@ -61,7 +67,7 @@ function renderKaTeX() {
     }
   }
 
-  // Render inline math
+  // Render BBCode math elements
   document.querySelectorAll('.katex-inline:not(.katex-rendered)').forEach((element) => {
     try {
       const math = element.getAttribute('data-katex') || element.textContent;
@@ -74,7 +80,6 @@ function renderKaTeX() {
     }
   });
 
-  // Render block math
   document.querySelectorAll('.katex-block:not(.katex-rendered)').forEach((element) => {
     try {
       const math = element.getAttribute('data-katex') || element.textContent;
@@ -87,48 +92,35 @@ function renderKaTeX() {
     }
   });
 
-  // Handle delimiter-based math (for posts that use \(...\) and $$...$$)
-  const delimiters = settings.delimiters || 'default';
-  
-  if (delimiters === 'default' || delimiters === 'parentheses') {
-    // Handle \(...\) inline math
+  // Use auto-render for delimiter-based math if available
+  if (typeof window.renderMathInElement !== 'undefined') {
+    const delimiters = settings.delimiters || 'default';
+    let delimiterConfig = [];
+
+    if (delimiters === 'default' || delimiters === 'parentheses') {
+      delimiterConfig.push(
+        { left: '\\(', right: '\\)', display: false },
+      );
+    }
+
+    if (delimiters === 'default' || delimiters === 'dollars') {
+      delimiterConfig.push(
+        { left: '$$', right: '$$', display: true },
+      );
+    }
+
     document.querySelectorAll('.Post-body, .CommentPost-body').forEach((container) => {
       if (container.dataset.katexProcessed) return;
       
-      let html = container.innerHTML;
-      html = html.replace(/\\\\\\(([^\\)]+)\\\\\\)/g, (match, math) => {
-        try {
-          return window.katex.renderToString(math, { ...options, displayMode: false });
-        } catch (error) {
-          return `<span class="katex-error" title="${error.message}">${match}</span>`;
-        }
-      });
-      
-      if (html !== container.innerHTML) {
-        container.innerHTML = html;
+      try {
+        window.renderMathInElement(container, {
+          delimiters: delimiterConfig,
+          ...options
+        });
+        container.dataset.katexProcessed = 'true';
+      } catch (error) {
+        console.warn('Auto-render error:', error);
       }
-      container.dataset.katexProcessed = 'true';
-    });
-  }
-
-  if (delimiters === 'default' || delimiters === 'dollars') {
-    // Handle $$...$$ block math
-    document.querySelectorAll('.Post-body, .CommentPost-body').forEach((container) => {
-      if (container.dataset.katexBlockProcessed) return;
-      
-      let html = container.innerHTML;
-      html = html.replace(/\\$\\$([^$]+)\\$\\$/g, (match, math) => {
-        try {
-          return window.katex.renderToString(math, { ...options, displayMode: true });
-        } catch (error) {
-          return `<div class="katex-error" title="${error.message}">${match}</div>`;
-        }
-      });
-      
-      if (html !== container.innerHTML) {
-        container.innerHTML = html;
-      }
-      container.dataset.katexBlockProcessed = 'true';
     });
   }
 }
