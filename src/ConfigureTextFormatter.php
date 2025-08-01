@@ -18,12 +18,12 @@ class ConfigureTextFormatter
 {
     protected $settings;
 
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(\Flarum\Settings\SettingsRepositoryInterface $settings)
     {
         $this->settings = $settings;
     }
 
-    public function __invoke(Configurator $config)
+    public function __invoke(\s9e\TextFormatter\Configurator $config)
     {
         // Always enabled since extension is loaded
 
