@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaTeX Plugin Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .katex-inline {
+            display: inline;
+            margin: 0 2px;
+        }
+        .katex-block {
+            display: block;
+            margin: 1em 0;
+            text-align: center;
+        }
+        .katex-error {
+            color: #cc0000;
+            border: 1px solid #cc0000;
+            padding: 2px 4px;
+            border-radius: 3px;
+            background-color: rgba(204, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Flarum KaTeX Extension Test</h1>
+    
+    <div class="test-section">
+        <h2>Inline Math Examples</h2>
+        <p>The quadratic formula is <span class="katex-inline" data-katex-options='{"displayMode": false}'>x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}</span>.</p>
+        <p>Einstein's famous equation: <span class="katex-inline" data-katex-options='{"displayMode": false}'>E = mc^2</span></p>
+        <p>A simple fraction: <span class="katex-inline" data-katex-options='{"displayMode": false}'>\frac{1}{2}</span></p>
+    </div>
+
+    <div class="test-section">
+        <h2>Block Math Examples</h2>
+        <div class="katex-block" data-katex-options='{"displayMode": true}'>\sum_{i=1}^{n} i = \frac{n(n+1)}{2}</div>
+        <div class="katex-block" data-katex-options='{"displayMode": true}'>\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}</div>
+        <div class="katex-block" data-katex-options='{"displayMode": true}'>\lim_{x \to \infty} \frac{1}{x} = 0</div>
+    </div>
+
+    <div class="test-section">
+        <h2>Matrix Example</h2>
+        <div class="katex-block" data-katex-options='{"displayMode": true}'>
+            \begin{pmatrix}
+            a & b \\
+            c & d
+            \end{pmatrix}
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Complex Expression</h2>
+        <div class="katex-block" data-katex-options='{"displayMode": true}'>
+            f(x) = \int_{-\infty}^{\infty} \hat{f}(\xi) e^{2\pi i \xi x} d\xi
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js"></script>
+    <script>
+        // Render all math expressions
+        document.querySelectorAll('.katex-inline, .katex-block').forEach(element => {
+            try {
+                const options = JSON.parse(element.getAttribute('data-katex-options') || '{}');
+                katex.render(element.textContent, element, options);
+            } catch (e) {
+                console.error('KaTeX rendering error:', e);
+                element.innerHTML = '<span class="katex-error">Math Error: ' + e.message + '</span>';
+            }
+        });
+    </script>
+</body>
+</html>
