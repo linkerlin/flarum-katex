@@ -12,6 +12,7 @@
 namespace LinkerLin\FlarumKatex;
 
 use Flarum\Extend;
+use Flarum\Api\Serializer\ForumSerializer;
 
 return [
     (new Extend\Frontend('forum'))

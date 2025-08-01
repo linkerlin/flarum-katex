@@ -49,7 +49,6 @@ class ConfigureTextFormatter
         
         if ($delimiters === 'default' || $delimiters === 'parentheses') {
             // Inline math: \(...\)
-            $config->plugins->load('PipeTables', ['overwriteEscapes' => false]);
             $config->rootContext->flags |= $config::RULE_IGNORE_WHITESPACE;
             
             // Add regex for inline math
