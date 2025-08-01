@@ -13,7 +13,6 @@
     "license": "MIT",
     "require": {
         "flarum/core": "^2.0",
-        "flarum/extend": "^2.0",
         "s9e/text-formatter": "*"
     },
     "authors": [

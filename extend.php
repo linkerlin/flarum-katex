@@ -11,11 +11,10 @@
 
 namespace LinkerLin\FlarumKatex;
 
-use Flarum\Extend\Frontend;
-use Flarum\Extend\Locales;
-use Flarum\Extend\Settings;
-use Flarum\Extend\Formatter;
-use LinkerLin\FlarumKatex\ConfigureTextFormatter;
+use Flarum\Core\Extend\Frontend;
+use Flarum\Core\Extend\Locales;
+use Flarum\Core\Extend\Settings;
+use Flarum\Core\Extend\Formatter;
 use LinkerLin\FlarumKatex\ConfigureTextFormatter;
 
 return [
