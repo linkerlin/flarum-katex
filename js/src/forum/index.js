@@ -7,30 +7,25 @@ function loadKaTeX() {
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
     cssLink.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css';
-    cssLink.crossOrigin = 'anonymous';
     document.head.appendChild(cssLink);
 
     // Load Copy-TeX CSS
     const copyTexCss = document.createElement('link');
     copyTexCss.rel = 'stylesheet';
     copyTexCss.href = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.css';
-    copyTexCss.crossOrigin = 'anonymous';
     document.head.appendChild(copyTexCss);
 
     // Load KaTeX JS
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js';
-    script.crossOrigin = 'anonymous';
     script.onload = () => {
       // Load auto-render extension first
       const autoRenderScript = document.createElement('script');
       autoRenderScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js';
-      autoRenderScript.crossOrigin = 'anonymous';
       autoRenderScript.onload = () => {
-        // Load Copy-TeX extension
+        // Load Copy-Tex extension
         const copyTexScript = document.createElement('script');
         copyTexScript.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/copy-tex.min.js';
-        copyTexScript.crossOrigin = 'anonymous';
         copyTexScript.onload = resolve;
         copyTexScript.onerror = resolve; // Don't fail if copy-tex fails
         document.head.appendChild(copyTexScript);
@@ -126,8 +121,9 @@ function renderKaTeX() {
 }
 
 app.initializers.add('linkerlin/flarum-katex', () => {
-  // Check if KaTeX is enabled
-  if (!app.forum.attribute('katex.enabled')) {
+  // Check if KaTeX settings are available
+  const settings = app.forum.attribute('katex') || {};
+  if (!settings) {
     return;
   }
 

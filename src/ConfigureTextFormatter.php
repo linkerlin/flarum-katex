@@ -25,9 +25,7 @@ class ConfigureTextFormatter
 
     public function __invoke(Configurator $config)
     {
-        if (!$this->settings->get('linkerlin-katex.enabled', true)) {
-            return;
-        }
+        // Always enabled since extension is loaded
 
         // Configure BBCode tags for math
         $config->BBCodes->addCustom(

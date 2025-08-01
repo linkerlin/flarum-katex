@@ -58,7 +58,8 @@ return [
         ->serializeToForum('katex.cdn_katex_js', 'linkerlin-katex.cdn_katex_js')
         ->serializeToForum('katex.cdn_katex_css', 'linkerlin-katex.cdn_katex_css')
         ->serializeToForum('katex.cdn_copy_tex', 'linkerlin-katex.cdn_copy_tex')
-        ->serializeToForum('katex.cdn_auto_render', 'linkerlin-katex.cdn_auto_render'),
+        ->serializeToForum('katex.cdn_auto_render', 'linkerlin-katex.cdn_auto_render')
+        ->serializeToForum('katex.enabled', function () { return true; }),
 
     (new Formatter())
         ->configure(ConfigureTextFormatter::class),
