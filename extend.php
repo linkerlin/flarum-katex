@@ -11,21 +11,23 @@
 
 namespace LinkerLin\FlarumKatex;
 
-use Flarum\Extend;
-use Flarum\Api\Serializer\ForumSerializer;
+use Flarum\Extend\Frontend;
+use Flarum\Extend\Locales;
+use Flarum\Extend\Settings;
+use Flarum\Extend\Formatter;
 
 return [
-    (new Extend\Frontend('forum'))
+    (new Frontend('forum'))
         ->js(__DIR__.'/js/dist/forum.js')
         ->css(__DIR__.'/less/forum.less'),
 
-    (new Extend\Frontend('admin'))
+    (new Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/less/admin.less'),
 
-    new Extend\Locales(__DIR__.'/locale'),
+    new Locales(__DIR__.'/locale'),
 
-    (new Extend\Settings())
+    (new Settings())
         ->default('linkerlin-katex.inline_delimiters', '\\(%e%\\)')
         ->default('linkerlin-katex.block_delimiters', '$$%e%$$')
         ->default('linkerlin-katex.bbcode_inline_delimiters', '[imath]%e%[/imath]')
@@ -44,11 +46,20 @@ return [
             function ($setting) {
                 return \boolval($setting) ? 'true' : 'false';
             }
-        ),
+        )
+        ->serializeToForum('katex.inline_delimiters', 'linkerlin-katex.inline_delimiters')
+        ->serializeToForum('katex.block_delimiters', 'linkerlin-katex.block_delimiters')
+        ->serializeToForum('katex.bbcode_inline_delimiters', 'linkerlin-katex.bbcode_inline_delimiters')
+        ->serializeToForum('katex.bbcode_block_delimiters', 'linkerlin-katex.bbcode_block_delimiters')
+        ->serializeToForum('katex.throw_on_error', 'linkerlin-katex.throw_on_error', function ($value) { return (bool) $value; })
+        ->serializeToForum('katex.error_color', 'linkerlin-katex.error_color')
+        ->serializeToForum('katex.output_mode', 'linkerlin-katex.output_mode')
+        ->serializeToForum('katex.enable_copy_tex', 'linkerlin-katex.enable_copy_tex', function ($value) { return (bool) $value; })
+        ->serializeToForum('katex.cdn_katex_js', 'linkerlin-katex.cdn_katex_js')
+        ->serializeToForum('katex.cdn_katex_css', 'linkerlin-katex.cdn_katex_css')
+        ->serializeToForum('katex.cdn_copy_tex', 'linkerlin-katex.cdn_copy_tex')
+        ->serializeToForum('katex.cdn_auto_render', 'linkerlin-katex.cdn_auto_render'),
 
-    (new Extend\ApiSerializer(ForumSerializer::class))
-        ->attributes(LoadSettings::class),
-
-    (new Extend\Formatter())
+    (new Formatter())
         ->configure(ConfigureTextFormatter::class),
 ];
